@@ -57,7 +57,6 @@ public class Game {
                     System.out.println("testing feature");
                     setPlayer(new Player());
                     setRegion(new TestRegion());
-                    System.out.println(this.region);
                 this.startGame();
                     break;
 
