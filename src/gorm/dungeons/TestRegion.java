@@ -37,7 +37,7 @@ public class TestRegion extends Region {
 
         Map room3Map = new HashMap();
         room3Map.put("WEST", room1);
-        room2.setDirections(room2Map);
+        room3.setDirections(room3Map);
 
 
 

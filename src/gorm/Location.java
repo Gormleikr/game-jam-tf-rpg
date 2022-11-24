@@ -10,7 +10,7 @@ public class Location {
     String shortDescription;
     String longDescription;
     Map<String, Location> locationMap;
-    List<Location> exits;
+//    List<Location> exits;
 
     // maybe exits should be more than just location...
     // -- need to figure out hwo to implement locked doors
@@ -46,11 +46,6 @@ public class Location {
 
         for(Directions d:Directions.values()){
             if (d.direction.equalsIgnoreCase(dir)){
-                // fixme here!! next!!
-                //test keys
-                // containsKey may be useful method....
-                // need to fix the keyset- i nexampletower?
-
                 return this.getDirectionMap().get(dir);
             }
         }
@@ -58,6 +53,11 @@ public class Location {
     }
 //                 System.out.println(this.getDirectionMap().keySet());
     //WILLL NEED ABOVE...
+
+    public void displayDescription(){
+        System.out.println(getLongDescription());
+        // todo, check if this should just be print instead of println
+    }
 
     // SETTERS
     public void setLocationName(String locationName) {
@@ -74,28 +74,22 @@ public class Location {
     }
 
     // METHODS
-    public String displayLocation(){
-        return (this.getLocationName()+"\n"+this.getShortDescription());
+    public void displayLocation(){
+
+        System.out.println(this.getLocationName());
+        // +"\n"+this.getShortDescription());
+        // get rid of short decr
+        // maybe implement options for short or long... later todo
+        this.displayDescription();
+        this.displayExits();
     }
     public void displayExits(){
-        // lists names of the exits (directions)
-        System.out.println("\n");
-        System.out.println("Exits: temporarily disabled"); //todo
-        //error here...
-        // need iterator?
-        // where is the Directions class???
-//        this.locationMap.entrySet().
-//                forEach(
-//                        (dir, loc)->
-//                        {
-//            System.out.println(
-//                    dir.toString() + ": " + loc.locationName
-//            );
-//        });
-
-//        this.locationMap.entrySet().forEach(entry -> {
-//            System.out.println(entry.getKey() + " Value : " + entry.getValue());
-//        });
+//        System.out.println("\n");
+        System.out.print("Exits: "); //todo
+        this.locationMap.entrySet().forEach(dir->{
+            System.out.print(dir.getKey()+" ");
+        });
+        System.out.println();
     }
     public boolean attemptExit(){
         return true; //todo

@@ -90,13 +90,11 @@ public class Game {
         //sets first location to active
         region.setActiveLocation(region.locations.get(0));
         System.out.println("game started");
-
+        System.out.println("\n\n\n\n\n");
         // play game here...
         this.isPlaying = true;
         while (this.isPlaying){
-
             // game here
-//            this.playGame(); //not a function yet
             this.isPlaying = this.gameMenu();
         }
 
@@ -105,18 +103,18 @@ public class Game {
 
     // main gameplay loop
     public boolean gameMenu(){
-        System.out.println("\n\nGAME MENU");
+        System.out.println("GAME MENU");
         // returns isPlaying
         String choice = "null";
         System.out.println("PLAYER: "+ player.name);
-        do {
             // this should access inventory or etc
             // no... this is main gameplay loop, which includes option for inventory, etc
 
             // describe room
-            System.out.println("Current Location: "+ this.region.activeLocation.getLocationName()); //todo, turn into function
-            System.out.println(this.region.activeLocation.getShortDescription());
+//            System.out.println("Current Location: "+ this.region.activeLocation.getLocationName()); //todo, turn into function
+//            System.out.println(this.region.activeLocation.getShortDescription());
 //        System.out.println("Main Menu:");
+            this.region.activeLocation.displayLocation();
             // list exits
             // list items
             // player status
@@ -193,18 +191,33 @@ public class Game {
                     break;
                 case "EXITS":
                 case "EXIT":
+                case "DOORS":
                     //todo display exits
                     this.region.activeLocation.displayExits();
                     break;
+                case "INV":
+                case "INVENTORY":
+                    // todo, call inventory menu
+                    break;
+                case "ITEM":
+                case "ITEMS":
+                    // todo, call item menu, form location...
+                    break;
+                case "OTHERS":
+                case "PEOPLE":
+                case "PPL":
+                    // call npc menu, todo
+                    break;
+                case "LOCATION":
+                case "LOC":
+                    this.region.getActiveLocation().displayDescription();
                 case "QUIT":
                     return false;
                 default:
                     choice = "meh";
             }
+            System.out.println("\n\n\n\n");
             return true; //todo,
-
-        }while (choice!="quit"); //unneeded, todo, fixme
-
     }
 
     private Location attemptToExit(String dir){
