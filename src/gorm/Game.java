@@ -1,5 +1,7 @@
 package gorm;
 
+import gorm.dungeons.ExampleTower;
+import gorm.dungeons.TestRegion;
 import org.w3c.dom.ls.LSOutput;
 
 import java.util.Scanner;
@@ -8,16 +10,32 @@ public class Game {
     Scanner scan;
     Region region;
     Player player;
-    boolean isPlaying;
+    boolean isPlaying = false;
+    // CONSTRUCTOR
+    public Game(Scanner sc){
+        this.scan = sc;
+    }
+    //SETTERS
+    private void selectPlayer(Scanner scan){} //todo
+    private void selectRegion(Scanner scan){} //todo
+    private void setPlayer(Player player){
+        this.player = player;
+    }
+    private void setRegion(Region region){
+        this.region = region;
+        this.region.setLocations(region.getLocations());
+        this.region.setActiveLocation(region.getActiveLocation());
+    }
+
+    // startup top menu
     public void mainMenu() {
         // for starting game
         String option = "9"; //unnecesary initialization
-
         do {
             System.out.println("Main Menu:");
             System.out.println("wip... options will be ");
             System.out.println("1.New Game 2.load region 3. load player characters 8. test 0. exit");
-            option = this.scan.nextLine();
+            option = this.scan.nextLine().toLowerCase();
             //    Integer.parseInt(
 
             switch (option) {
@@ -37,29 +55,28 @@ public class Game {
                     break;
                 case "8":
                     System.out.println("testing feature");
+                    setPlayer(new Player());
+                    setRegion(new TestRegion());
+                    System.out.println(this.region);
                 this.startGame();
                     break;
 
                 case "0":
+                case "quit":
                     option = "0";
+                    System.out.println("Exiting Game");
                     break;
                 default:
                     option = "9";
                     break;
             }
-            System.out.println("options is " + option + "len=" + option.length());
+            System.out.println("\n");
         } while (option != "0");
 
 
     }
-    public Game(Scanner sc){
-        this.scan = sc;
-    }
-    public void gameMenu(){
-        // this should access intentory or etc
-        // no... this is main gameplay loop, which includes option for inventory, etc
 
-    }
+
     public void startGame(){
         if(this.player ==null){
             System.out.println("You must select your character(s)");
@@ -70,6 +87,8 @@ public class Game {
             return;
         }
 
+        //sets first location to active
+        region.setActiveLocation(region.locations.get(0));
         System.out.println("game started");
 
         // play game here...
@@ -77,11 +96,136 @@ public class Game {
         while (this.isPlaying){
 
             // game here
-            // SELECT OPTIONS; game menu, room menu, item menu?
-            this.isPlaying = false;
+//            this.playGame(); //not a function yet
+            this.isPlaying = this.gameMenu();
         }
 
         return;
     }
 
+    // main gameplay loop
+    public boolean gameMenu(){
+        System.out.println("\n\nGAME MENU");
+        // returns isPlaying
+        String choice = "null";
+        System.out.println("PLAYER: "+ player.name);
+        do {
+            // this should access inventory or etc
+            // no... this is main gameplay loop, which includes option for inventory, etc
+
+            // describe room
+            System.out.println("Current Location: "+ this.region.activeLocation.getLocationName()); //todo, turn into function
+            System.out.println(this.region.activeLocation.getShortDescription());
+//        System.out.println("Main Menu:");
+            // list exits
+            // list items
+            // player status
+            //...exit and entrance events...
+            System.out.println("enter \"options\" for more options");
+            // input is not here!
+            choice = this.scan.nextLine().toUpperCase();
+            switch (choice) {
+                case "N":
+                case "NORTH":
+                this.region.setActiveLocation(
+                    this.attemptToExit("NORTH")
+                );
+                    break;
+                case "SOUTH":
+                case "S":
+                    this.region.setActiveLocation(
+                        this.attemptToExit("SOUTH")
+                    );
+                    break;
+                case "WEST":
+                case "W":
+                    this.region.setActiveLocation(
+                        this.attemptToExit("WEST")
+                    );
+                    break;
+                case "EAST":
+                case "E": //fixme, all directions go east in testtwr
+                    this.region.setActiveLocation(
+                        this.attemptToExit("EAST")
+                    );
+                    break;
+                case "NORTHWEST":
+                case "NW":
+                    this.region.setActiveLocation(
+                            this.attemptToExit("NORTHWEST")
+                    );
+                    break;
+                case "NORTHEAST":
+                case "NE":
+                    this.region.setActiveLocation(
+                        this.attemptToExit("NORTHEAST")
+                    );
+                    break;
+                case "SOUTHWEST":
+                case "SW":
+                    this.region.setActiveLocation(
+                        this.attemptToExit("SOUTHWEST")
+                    );
+                    break;
+                case "SOUTHEAST":
+                case "SE":
+                    this.region.setActiveLocation(
+                            this.attemptToExit("SOUTHEAST")
+                    );
+                    break;
+                case "DOWN":
+                case "D":
+                    this.region.setActiveLocation(
+                        this.attemptToExit("DOWN")
+                    );
+                    break;
+                case "UP":
+                case "U":
+                    this.region.setActiveLocation(
+                            this.attemptToExit("UP")
+                    );
+                    break;
+                case "options":
+                    System.out.println("QUIT to Quit Game");
+                    System.out.println("INV for inventory details");
+                    System.out.println("LOC for location details");
+                    // this should include items on floor
+                    break;
+                case "EXITS":
+                case "EXIT":
+                    //todo display exits
+                    this.region.activeLocation.displayExits();
+                    break;
+                case "QUIT":
+                    return false;
+                default:
+                    choice = "meh";
+            }
+            return true; //todo,
+
+        }while (choice!="quit"); //unneeded, todo, fixme
+
+    }
+
+    private Location attemptToExit(String dir){
+        System.out.println("in attempt to exit"); //todo debug
+        if(this.region.activeLocation.getDirection(dir)!=null ){
+            if(this.region.activeLocation.attemptExit()){ //attempt to leave
+                if(this.region.activeLocation.getDirection(dir).attemptEnter()) {
+                    //attempt to arrive
+                    System.out.println("Moving...");
+                    return this.region.activeLocation.getDirection(dir);
+                }
+            }
+        }
+        else{
+            System.out.println("\nThat is not a valid exit\n");
+        }
+        return this.region.activeLocation;
+        // todo, need to make this load location...
+    }
+
+
+
+// end of class
 }
