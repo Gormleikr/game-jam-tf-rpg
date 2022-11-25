@@ -70,7 +70,7 @@ public class Game {
                     break;
             }
             System.out.println("\n");
-        } while (option != "0");
+        } while (!option.equals("0"));
 
 
     }

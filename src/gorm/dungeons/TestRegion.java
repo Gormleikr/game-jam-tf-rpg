@@ -12,7 +12,7 @@ public class TestRegion extends Region {
 
     public TestRegion(){
         Location room1 = new Location();
-        room1.setLocationName("Cental Room");
+        room1.setLocationName("Central Room");
         room1.setShortDescription("A blue Room");
         room1.setLongDescription("Rough stone walls and blue tiled floor.");
 
