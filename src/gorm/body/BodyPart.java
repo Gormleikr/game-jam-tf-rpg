@@ -301,6 +301,10 @@ public class BodyPart {
 
     }
 
+    public void display(){
+        System.out.println(this.getLimbName()+": HP:"+this.getHP()+"/"+this.getMaxHP());
+    }
+
 
 
     //todo, remove muscle mass?

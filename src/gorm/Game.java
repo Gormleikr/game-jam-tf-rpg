@@ -102,7 +102,7 @@ public class Game {
 
     // main gameplay loop
     public boolean gameMenu(){
-        System.out.println("GAME MENU");
+//        System.out.println("GAME MENU");
         // returns isPlaying
         String choice = "null";
         System.out.println("PLAYER: "+ player.name);
@@ -215,12 +215,13 @@ public class Game {
                 default:
                     choice = "meh";
             }
+        System.out.println("press enter to continue");
+            this.scan.nextLine();
             System.out.println("\n\n\n\n");
             return true; //todo,
     }
 
     private Location attemptToExit(String dir){
-        System.out.println("in attempt to exit"); //todo debug
         if(this.region.activeLocation.getDirection(dir)!=null ){
             if(this.region.activeLocation.attemptExit()){ //attempt to leave
                 if(this.region.activeLocation.getDirection(dir).attemptEnter()) {

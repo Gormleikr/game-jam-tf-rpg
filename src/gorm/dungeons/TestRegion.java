@@ -41,7 +41,7 @@ public class TestRegion extends Region {
 
 
 
-        List roomList = new LinkedList();
+        List<Location> roomList = new LinkedList();
         roomList.add(room1);
         roomList.add(room2);
         roomList.add(room3);
