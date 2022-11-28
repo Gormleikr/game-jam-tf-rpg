@@ -182,7 +182,8 @@ public class Game {
                             this.attemptToExit("UP")
                     );
                     break;
-                case "options":
+                case "OPTION":
+                case "OPTIONS":
                     System.out.println("QUIT to Quit Game");
                     System.out.println("INV for inventory details");
                     System.out.println("LOC for location details");
@@ -210,6 +211,7 @@ public class Game {
                 case "LOCATION":
                 case "LOC":
                     this.region.getActiveLocation().displayDescription();
+                    break;
                 case "QUIT":
                     return false;
                 default:

@@ -15,7 +15,10 @@ public class BodyPart {
     int bulkMuscle;
     int gender;
     int humanity;
-    int beastType; //should be enum, todo
+    int dex=0;
+    String color;
+    String texture;
+    String beastType; //should be enum, todo
     // 0=human,1=wolf,2=cat,3=sheep,4=goat,5=horse,6=deer
     // 7=lizard, 8=rodent(rabbit,squirrel,wip), 9=bird
     String description;
@@ -104,10 +107,10 @@ public class BodyPart {
     public void setHumanity(int humanity) {
         this.humanity = humanity;
     }
-    public int getBeastType() {
+    public String getBeastType() {
         return beastType;
     }
-    public void setBeastType(int beastType) {
+    public void setBeastType(String beastType) {
         this.beastType = beastType;
     }
     public String getDescription() {
@@ -128,7 +131,15 @@ public class BodyPart {
     public void setLimbName(String limbName) {
         this.limbName = limbName;
     }
-    //METHODS
+
+    public int getDex() {
+        return dex;
+    }
+
+    public void setDex(int dex) {
+        this.dex = dex;
+    }
+//METHODS
 
     public void recalculateStats(){
         //setStrength
@@ -239,24 +250,231 @@ public class BodyPart {
             } while (inMasculinity<0);
         }
     } //this should be cannibalized so I can use the muscle tf in its own function
-    public void takeSpeciesChange(int newSpecies){
+    public void takeSpeciesChange(String newSpecies){
         //todo focus on mass changes for different species
         //todo, also need descriptions... might rely on bodypart.type...
-        int currentSpecies = this.getBeastType();
-        if (currentSpecies==newSpecies){
-            this.takeHumanityChange(1);
+        String currentSpecies = this.getBeastType();
+        if (currentSpecies.equalsIgnoreCase(newSpecies)){
+            this.takeHumanityChange(newSpecies);
         }
         else {
             //todo...sysout here
+            System.out.println("Your "+this.getBeastType()+"like "
+                    +this.getType()+" shifts, becoming more "+newSpecies+"like");
             this.setBeastType(newSpecies);
             // TODO: 11/25/2022 different values for species ...
         }
         //todo, figure out if I can get 2 species at once... maybe for next game
 
     }
-    public void takeHumanityChange(int change){//+->more beastial
+    public void takeHumanityChange(String toBeast){//+=>more beastial
+        //one stage at a time, no reversals?... for now todo
+        int human=this.getHumanity();
+        String beast=this.getBeastType();
+        String partType=this.getType();
+        if(human<=0){
+            System.out.println(this.getLimbName()+" is as bestial as it can be");
+        }
+        else{
+            if(partType.equalsIgnoreCase("arm")){
+                System.out.println("Your arm becomes more bestial.");
+                if (toBeast.equalsIgnoreCase("rabbit")||
+                        toBeast.equalsIgnoreCase("wolf")||
+                        toBeast.equalsIgnoreCase("feline")
+                ){
+                    System.out.println("You feel fur spread across the limb.");
+                    if(human==4){
+                        System.out.println("Your hand convulses and twitches as it becomes more bestial.");
+                        this.setDescription("arm complete with pawlike fingers on a mostly human hand.");
+                        System.out.println("You now have a slightly "+toBeast+"like "+this.getDescription());
+                        System.out.println("You now have a pawlike hand");
+                        this.setDex(22);
+//                        System.out.println("Your limb is "); todo, add color and texture... but not now
+                    }
+                    if(human==3){
+                        System.out.println("Your hand snaps and convulses as it becomes more bestial.");
+                        this.setDescription("arm complete with pawlike fingers and elongated, bestial hand.");
+                        System.out.println("You now have a vaguely "+toBeast+"like "+this.getDescription());
+                        this.setDex(17);
+                    }
+                    if(human==2){
+                        System.out.println("Your hand convulses as it becomes more bestial.");
+                        this.setDescription("arm complete with pawlike fingers attached you your grasping paw.");
+                        System.out.println("You now have a "+toBeast+"like "+this.getDescription());
+                        this.setDex(12);
+                    }
+                    if(human==1){
+                        System.out.println("Your fingers shrink as they become bestial paws.");
+                        this.setDescription("foreleg complete with animal paw.");
+                        System.out.println("You now have a "+toBeast+"like "+this.getDescription());
+                        this.setDex(6);
+                        // todo, make this one function using description...
+                    }
+                }
+                if (toBeast.equalsIgnoreCase("sheep")||
+                        toBeast.equalsIgnoreCase("horse")||
+                        toBeast.equalsIgnoreCase("deer")||
+                        toBeast.equalsIgnoreCase("cow")||
+                        toBeast.equalsIgnoreCase("goat")
+                ){
+                    System.out.println("You feel fur spread across the limb.");
+                    if(human==4){
+                        System.out.println("Your hand stiffens slightly as it becomes more bestial.");
+                        this.setDescription("arm complete with slightly stiffened fingers on a mostly human hand.");
+                        System.out.println("You now have a slightly "+toBeast+"like "+this.getDescription());
+                        this.setDex(19);
+//                        System.out.println("Your limb is "); todo, add color and texture... but not now
+                    }
+                    if(human==3){
+                        System.out.println("Your fingers shrink as they become more bestial.");
+                        this.setDescription("arm complete with hooflike fingers and elongated, bestial wrist.");
+                        System.out.println("You now have a vaguely "+toBeast+"like "+this.getDescription());
+                        this.setDex(14);
+                    }
+                    if(human==2){
+                        System.out.println("Your fingers merge into hooflike digits.");
+                        this.setDescription("arm complete with split fingerlike hoof digits attached to your bestial wrist.");
+                        System.out.println("You now have a "+toBeast+"like "+this.getDescription());
+                        this.setDex(8);
+                    }
+                    if(human==1){
+                        System.out.println("Your fingers fuse and merge into a hoof.");
+                        this.setDescription("foreleg complete with hoof.");
+                        System.out.println("You now have a "+toBeast+"like "+this.getDescription());
+                        this.setDex(3);
+                        // todo, make this one function using description...
+                    }
 
+                }
+                if (toBeast.equalsIgnoreCase("lizard")||
+                        toBeast.equalsIgnoreCase("reptile")
+                ){
+                    System.out.println("You feel scales spread across the limb.");
+                    if(human==4){
+                        System.out.println("Your fingers stretch as they become more bestial.");
+                        this.setDescription("arm complete with slightly elongated fingers on a mostly human hand.");
+                        System.out.println("You now have a slightly "+toBeast+"like "+this.getDescription());
+                        this.setDex(23);
+//                        System.out.println("Your limb is "); todo, add color and texture... but not now
+                    }
+                    if(human==3){
+                        System.out.println("Claws burst from your fingers as they lose their humanity.");
+                        this.setDescription("arm complete with inhuman fingers attached to a somewhat human hand.");
+                        System.out.println("You now have a "+toBeast+"like "+this.getDescription());
+                        this.setDex(20);
+                    }
+                    if(human==2){
+                        System.out.println("Your hand lengthens slightly as it becomes more bestial.");
+                        this.setDescription("arm complete with scaly fingers and somewhat bestial wrist.");
+                        System.out.println("You now have a vaguely "+toBeast+"like "+this.getDescription());
+                        this.setDex(17);
+                    }
+                    if(human==1){
+                        System.out.println("Your thumb becomes another scaly finger and you no longer have an opposable thumb on this hand.");
+                        this.setDescription("foreleg complete with grasping paws.");
+                        System.out.println("You now have a "+toBeast+"like "+this.getDescription());
+                        this.setDex(14);
+                        // todo, make this one function using description...
+                    }
+                }
+                if (toBeast.equalsIgnoreCase("bird")
+//                        || toBeast.equalsIgnoreCase("avian")
+                ){
+                    System.out.println("You feel feathers spread across the limb.");
+                    if(human==4){
+                        System.out.println("Your fingers stretch as they become more bestial.");
+                        this.setDescription("arm complete with slightly elongated fingers on a mostly human hand.");
+                        System.out.println("You now have a slightly "+toBeast+"like "+this.getDescription());
+                        this.setDex(20);
+//                        System.out.println("Your limb is "); todo, add color and texture... but not now
+                    }
+                    if(human==3){
+                        System.out.println("Your fingers shift as your arm becomes more winglike.");
+                        this.setDescription("arm-wing complete with elongated fingers.");
+                        System.out.println("You now have a "+toBeast+"like "+this.getDescription());
+                        this.setDex(16);
+                    }
+                    if(human==2){
+                        System.out.println("Your lower digits stiffen as they are absorbed by your new wing.");
+                        this.setDescription("wing with several fingerlike digits.");
+                        System.out.println("You now have a vaguely "+toBeast+"like "+this.getDescription());
+                        this.setDex(12);
+                    }
+                    if(human==1){
+                        System.out.println("Thge last of your fingerlike digits are absorbed into your wing.");
+                        this.setDescription("wing with no apparent digits.");
+                        System.out.println("You now have a "+toBeast+"like "+this.getDescription());
+                        this.setDex(5);
+                        // todo, make this one function using description...
+                    }
+            }
+            if(partType.equalsIgnoreCase("leg")){
+                //fixme
+                System.out.println("Your leg becomes more bestial.");
+                if (toBeast.equalsIgnoreCase("rabbit")||
+                        toBeast.equalsIgnoreCase("wolf")||
+                        toBeast.equalsIgnoreCase("feline")
+                ){
+                    System.out.println("You feel fur spread across the limb.");
+                    if(human==4){
+                        // fixme @here
+                    }
+                        System.out.println("Your hand convulses and twitches as it becomes more bestial as well.");
+                        this.setDescription("arm complete with pawlike fingers on a mostly human hand.");
+                        System.out.println("You now have a slightly "+toBeast+"like "+this.getDescription());
+                        System.out.println("You now have a pawlike hand");
+                        this.setDex(20);
+//                        System.out.println("Your limb is "); todo, add color and texture... but not now
+                    }
+                    if(human==3){
+                        System.out.println("Your hand snaps and convulses as it becomes more bestial as well.");
+                        this.setDescription("arm complete with pawlike fingers and elongated, bestial hand.");
+                        System.out.println("You now have a vaguely "+toBeast+"like "+this.getDescription());
+                        this.setDex(15);
+                    }
+                    if(human==2){
+                        System.out.println("Your hand convulses as it becomes more bestial as well.");
+                        this.setDescription("arm complete with pawlike fingers attached you your grasping paw.");
+                        System.out.println("You now have a "+toBeast+"like "+this.getDescription());
+                        this.setDex(10);
+                    }
+                    if(human==1){
+                        System.out.println("Your fingers shrink as they become bestial paws.");
+                        this.setDescription("foreleg complete with animal paw.");
+                        System.out.println("You now have a "+toBeast+"like "+this.getDescription());
+                        this.setDex(5);
+                        // todo, make this one function using description...
+                    }
+
+                }
+
+            }
+            if(partType.equalsIgnoreCase("waist")){
+
+            }
+            if(partType.equalsIgnoreCase("chest")){
+
+            }
+            if(partType.equalsIgnoreCase("abdomen")){
+
+            }
+            if(partType.equalsIgnoreCase("tail")){
+
+            }
+            if(partType.equalsIgnoreCase("head")){
+
+            }
+            else {
+                System.out.println("Your "+this.getLimbName()+" becomes more "+toBeast+"like.");
+            }
+        }
+
+
+//        if(human==1&beast==1){
+//        }
     }
+    // 0=human,1=wolf,2=cat,3=sheep,4=goat,5=horse,6=deer
+    // 7=lizard, 8=rodent(rabbit,squirrel,wip), 9=bird
 
 
     public void takeDmg(int incoming){

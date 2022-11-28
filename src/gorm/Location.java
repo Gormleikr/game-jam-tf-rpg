@@ -1,4 +1,6 @@
 package gorm;
+import gorm.dungeons.LocationEvent;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -10,10 +12,14 @@ public class Location {
     String shortDescription;
     String longDescription;
     Map<String, Location> locationMap;
+    public LocationEvent onArrival;
+    public LocationEvent onExit;
+
+
 //    List<Location> exits;
 
     // maybe exits should be more than just location...
-    // -- need to figure out hwo to implement locked doors
+    // -- need to figure out how to implement locked doors
     // Exit may need to be an object...
 
     // if succeed, returns new location, if fail returns current location
@@ -52,7 +58,7 @@ public class Location {
         return null;
     }
 //                 System.out.println(this.getDirectionMap().keySet());
-    //WILLL NEED ABOVE...
+    //WILL NEED ABOVE...
 
     public void displayDescription(){
         System.out.println(getLongDescription());
@@ -96,7 +102,7 @@ public class Location {
         // compare to existing exits...
     }
     public boolean attemptEnter(){
-        this.displayExits();
+//        this.displayExits();
         return true; //todo
         // probably don't need this now...
         //...so keeping it true
