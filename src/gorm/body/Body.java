@@ -1,6 +1,7 @@
 package gorm.body;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class Body {
     int SP;
@@ -39,6 +40,9 @@ public class Body {
     }
     public List<BodyPart> getBodyList() {
         return bodyList;
+    }
+    public BodyPart getBodyPart(int in){
+        return this.getBodyList().get(in);
     }
 
     // SETTERS
@@ -112,12 +116,30 @@ public class Body {
 
 
 
+// TODO, SELECT PART, affect part, get random part
+    //
+    public void displayBodyParts(Scanner sc){
+        System.out.println("select a limb, use number");
+        for (int i =0; i<this.getBodyList().size();i++){
+            System.out.println(i+". ");
+            this.getBodyList().get(i).display();
+        }//fixme, number probably not on correct line
+    }
+    public int selectRandomPart(){
+        return (int) (Math.random()*bodyList.size());
+    }
+    public int selectPart() { //todo, fixme
+        // display
+//        return (int) (Math.random()*bodyList.size());
 
-
-
-
-
-
+//        String out;
+//        int input;
+//        do {
+//            out = sc.nextLine();
+//
+//        }(while input!=)
+        return 0;// fixme
+        }
 
 
 
