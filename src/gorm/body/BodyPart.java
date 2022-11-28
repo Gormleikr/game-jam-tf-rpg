@@ -146,11 +146,11 @@ public class BodyPart {
         int s = 0;
         s=s+3*getBulkMuscle();
         s=s+2*getLeanMuscle();
-        s=s+1*getSlimMuscle();
+        s=s+ getSlimMuscle();
         this.setStr(s);
         //set agility
         int a = 0;
-        a=a+1*getBulkMuscle();
+        a=a+getBulkMuscle();
         a=a+2*getLeanMuscle();
         a=a+3*getSlimMuscle();
         this.setStr(s);
@@ -231,7 +231,7 @@ public class BodyPart {
                         if (this.getLeanMuscle()<0){ //if not enough lean
                             fChange=this.getLeanMuscle();
                             fChange=-fChange; //should now be positive
-                            //set slim- currently fChange muscle is lost on top of 5%
+                            //set slim - currently fChange muscle is lost on top of 5%
                 this.setSlimMuscle(this.getSlimMuscle()+(int)(this.getMass()*1.05));
                             setLeanMuscle(0); //cleanup lean
                         }

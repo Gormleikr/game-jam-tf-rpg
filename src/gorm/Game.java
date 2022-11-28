@@ -88,7 +88,7 @@ public class Game {
 
         //sets first location to active
         region.setActiveLocation(region.locations.get(0));
-        System.out.println("game started");
+        this.region.playIntro();
         System.out.println("\n\n\n\n\n");
         // play game here...
         this.isPlaying = true;
@@ -225,8 +225,8 @@ public class Game {
 
     private Location attemptToExit(String dir){
         if(this.region.activeLocation.getDirection(dir)!=null ){
-            if(this.region.activeLocation.attemptExit()){ //attempt to leave
-                if(this.region.activeLocation.getDirection(dir).attemptEnter()) {
+            if(this.region.activeLocation.attemptExit(this.player, scan)){ //attempt to leave
+                if(this.region.activeLocation.getDirection(dir).attemptEnter(this.player, scan)) {
                     //attempt to arrive
                     System.out.println("Moving...");
                     return this.region.activeLocation.getDirection(dir);

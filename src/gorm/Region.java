@@ -55,4 +55,28 @@ public class Region {
     public void setLocations(List<Location> locations) {
         this.locations = locations;
     }
+
+    //PLAY INTRO
+    public void playIntro(){
+        // this should read a region specific text - overwrite this!
+        System.out.println("You wake up in the wilds.");
+    }
+    /*
+    The kingdom of Murn has fallen.
+    Refugees flee towards the sanctum of their neighbor's lands.
+    You are among these refugees.
+    With only the clothes on your back, you find yourself traveling the mountain
+    paths towards the eastern kingdom of Eostria.
+    But the wilds hold many dangers.
+    Bandits, demons, and monstrosities left over from the ancient conflicts
+    prowl the wilds. Ancient magicks prey upon unknowing passerbys.
+    And the recent conflict has only made things worse.
+    Bandits attack a group of refugees camped along the road. Screams. Running.
+    Darkness.
+    You wake up, separated by your company, at the button of a rough clift
+    */
+
+
+
+
 }

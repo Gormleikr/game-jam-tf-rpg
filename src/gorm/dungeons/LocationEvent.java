@@ -2,11 +2,14 @@ package gorm.dungeons;
 
 import gorm.Player;
 
+import java.util.Scanner;
+
 public class  LocationEvent {
     boolean isActive = false;
-    public void activateEvent(Player player) {
+    public boolean activateEvent(Player player, Scanner sc) {
         // overwrite this for specific events!!!
-        // do not need to return
+        // return for success?
+        return true; //return true means non-overwritten allows entry
     }
 
     // CONSTRUCTORS

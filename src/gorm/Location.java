@@ -4,6 +4,7 @@ import gorm.dungeons.LocationEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Location {
 
@@ -34,7 +35,10 @@ public class Location {
         return this; //todo
     }
     // CONSTRUCTORS
-    public Location(){}
+    public Location(){
+        this.onArrival = new LocationEvent();
+        this.onExit = new LocationEvent();
+    }
     // todo, constructor with full details... or file system wip
 
     // GETTERS
@@ -64,6 +68,30 @@ public class Location {
         System.out.println(getLongDescription());
         // todo, check if this should just be print instead of println
     }
+
+
+    public Map<String, Location> getLocationMap() {
+        return locationMap;
+    }
+    public LocationEvent getOnExit() {
+        return onExit;
+    }
+    public void setOnExit(LocationEvent onExit) {
+        this.onExit = onExit;
+    }
+
+    public void setLocationMap(Map<String, Location> locationMap) {
+        this.locationMap = locationMap;
+    }
+    public void setOnArrival(LocationEvent onArrival) {
+        this.onArrival = onArrival;
+    }
+    public LocationEvent getOnArrival() {
+        return onArrival;
+    }
+
+
+
 
     // SETTERS
     public void setLocationName(String locationName) {
@@ -97,15 +125,13 @@ public class Location {
         });
         System.out.println();
     }
-    public boolean attemptExit(){
-        return true; //todo
+    public boolean attemptExit(Player p, Scanner sc){
+        return this.onExit.activateEvent(p, sc);
         // compare to existing exits...
     }
-    public boolean attemptEnter(){
-//        this.displayExits();
-        return true; //todo
-        // probably don't need this now...
-        //...so keeping it true
+    public boolean attemptEnter(Player p, Scanner sc){
+
+        return this.onArrival.activateEvent(p, sc);
     }
 
     @Override

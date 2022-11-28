@@ -2,6 +2,7 @@ package gorm.dungeons;
 
 import gorm.Location;
 import gorm.Region;
+import gorm.dungeons.events.TestEvent1;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -44,7 +45,14 @@ public class TestRegion extends Region {
         List<Location> roomList = new LinkedList();
         roomList.add(room1);
         roomList.add(room2);
+        //wip
+        room3.setOnExit(new TestEvent1());
         roomList.add(room3);
+
         this.setLocations(roomList);
+
+        // add-ons (WIPS)
+
+
     }
 }

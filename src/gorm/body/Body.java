@@ -76,6 +76,39 @@ public class Body {
     }
 
 
+    // create specific bodies here:
+    public Body(String init){
+        //wip, todo
+    }
+
+//    public Body(int SP, int MP, int maxSP){
+//        this.setSP(SP);
+//        this.setMP(MP);
+//        private void setMaxSP() {
+//            this.maxSP = maxSP;
+//        }
+//        private void setMaxMP(int maxMP) {
+//            this.maxMP = maxMP;
+//        }
+//        private void setStr(int str) {
+//            this.str = str;
+//        }
+//        private void setAgl(int agl) {
+//            this.agl = agl;
+//        }
+//        private void setIntelligence(int intelligence) {
+//            this.intelligence = intelligence;
+//        }
+//        private void setBodyList(List<BodyPart> bodyList) {
+//            this.bodyList = bodyList;
+//        }
+//    }
+
+    // gender change
+    // beast change
+    // humanity change
+
+
 
 
 
