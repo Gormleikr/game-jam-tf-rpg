@@ -2,6 +2,7 @@ package gorm.dungeons;
 
 import gorm.Location;
 import gorm.Region;
+import gorm.dungeons.events.AutoFemEvent;
 import gorm.dungeons.events.TestEvent1;
 import gorm.dungeons.events.TestEvent2;
 
@@ -53,7 +54,8 @@ public class TestRegion extends Region {
         this.setLocations(roomList);
 
         // add-ons (WIPS)
-        room2.setOnArrival(new TestEvent2());
+//        room2.setOnArrival(new TestEvent2());
+        room2.setOnArrival(new AutoFemEvent());
 
     }
 }

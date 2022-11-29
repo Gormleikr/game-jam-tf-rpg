@@ -187,74 +187,92 @@ public class BodyPart {
     }
     public void takeGenderChange(int inMasculinity){ //plus for more male tf
         //get more male
+
         if (inMasculinity>0){
             do{
+                int initialMass = this.getMass();
                 if(this.getGender()<10){
-                    this.setGender(this.getGender()+1);
-                    this.setBulkMuscle(
-                            this.getBulkMuscle()+(
-                                    (int)(this.getMass()*.1)
-                            )
-                    );
-                    if(this.getSlimMuscle()>(int)(this.getMass()*.05)){
-                        this.setSlimMuscle(this.getSlimMuscle()-(int)(this.getMass()*.05));
-                    } else {
-                        int mChange= (this.getSlimMuscle()-(int)(this.getMass()*.05));
-                        mChange = -mChange;
-                         this.setSlimMuscle(0);
-                         if (this.getLeanMuscle()<mChange) {
-                             this.setLeanMuscle(0);
-                         } else {this.setLeanMuscle(this.getLeanMuscle()-mChange);}
+                    if (initialMass<20){//todo, fix this oversimplified section
+                        this.setMass(this.getMass()+1);
+                        this.setBulkMuscle(this.getBulkMuscle()+1);
                     }
-                    this.setMass((int)(this.getMass()*1.05));
-                    System.out.println(this.getLimbName()+" has grown in muscle and size");
+                    else {
+                        this.setGender(this.getGender() + 1);
+                        this.setBulkMuscle(
+                                this.getBulkMuscle() + (
+                                        (int) (this.getMass() * .1)
+                                )
+                        );
+                        if (this.getSlimMuscle() > (int) (this.getMass() * .05)) {
+                            this.setSlimMuscle(this.getSlimMuscle() - (int) (this.getMass() * .05));
+                        } else {
+                            int mChange = (this.getSlimMuscle() - (int) (this.getMass() * .05));
+                            mChange = -mChange;
+                            this.setSlimMuscle(0);
+                            if (this.getLeanMuscle() < mChange) {
+                                this.setLeanMuscle(0);
+                            } else {
+                                this.setLeanMuscle(this.getLeanMuscle() - mChange);
+                            }
+                        }
+                        this.setMass((int) (this.getMass() * 1.05));
+                        System.out.println(this.getLimbName() + " has grown in muscle and size");
+                    }
                 }
                 inMasculinity--;
             } while (inMasculinity>0);
             //get more female
         } else if (inMasculinity<0) { //wip, fixme, feminize
             do{
+                int initialMass = this.getMass();
                 //lose bulk muscle
                 if(this.getGender()>-10){
-                    this.setGender(this.getGender()-1);
-                    this.setBulkMuscle(
-                            this.getBulkMuscle()-(
-                                    (int)(this.getMass()*.1)
-                            )
-                    );
-                    //if not enough bulk, reduce from lean
-                    if(this.getBulkMuscle()<0){
-                        int fChange = this.getBulkMuscle();
-                        fChange = -fChange;
-
-                        this.setLeanMuscle(this.getLeanMuscle()+fChange);
-                        if (this.getLeanMuscle()<0){ //if not enough lean
-                            fChange=this.getLeanMuscle();
-                            fChange=-fChange; //should now be positive
-                            //set slim - currently fChange muscle is lost on top of 5%
-                this.setSlimMuscle(this.getSlimMuscle()+(int)(this.getMass()*1.05));
-                            setLeanMuscle(0); //cleanup lean
-                        }
-                        setBulkMuscle(0);// cleanup bulk
-                    } else {
-                        //grow slim muscle
-                        this.setSlimMuscle(this.getSlimMuscle()+(int)(this.getMass()*1.05));
-                        //bulk was set in while loop
+                    if (initialMass<20){//todo, fix this oversimplified section
+                        this.setMass(this.getMass()-1);
+//                        this.setSlimMuscle(this.getSlimMuscle()+1);
                     }
-                    //mass effect
-                    this.setMass((int)(this.getMass()*.95));
-                    System.out.println(this.getLimbName()+" has lost muscle and shrunken in size");
+                    else {
+                        this.setGender(this.getGender() - 1);
+                        this.setBulkMuscle(
+                                this.getBulkMuscle() - (
+                                        (int) (this.getMass() * .1)
+                                )
+                        );
+                        //if not enough bulk, reduce from lean
+                        if (this.getBulkMuscle() < 0) {
+                            int fChange = this.getBulkMuscle();
+                            fChange = -fChange;
 
+                            this.setLeanMuscle(this.getLeanMuscle() + fChange);
+                            if (this.getLeanMuscle() < 0) { //if not enough lean
+                                fChange = this.getLeanMuscle();
+                                fChange = -fChange; //should now be positive
+                                //set slim - currently fChange muscle is lost on top of 5%
+                                this.setSlimMuscle(this.getSlimMuscle() + (int) (this.getMass() * 1.05));
+                                setLeanMuscle(0); //cleanup lean
+                            }
+                            setBulkMuscle(0);// cleanup bulk
+                        } else {
+                            //grow slim muscle
+                            this.setSlimMuscle(this.getSlimMuscle() + (int) (this.getMass() * 1.05));
+                            //bulk was set in while loop
+                        }
+                        //mass effect
+                        this.setMass((int) (this.getMass() * .95));
+                        System.out.println(this.getLimbName() + " has lost muscle and shrunken in size");
+                    }
                 }
                 inMasculinity++;
             } while (inMasculinity<0);
         }
-    } //this should be cannibalized so I can use the muscle tf in its own function
+        this.recalculateStats(); // this should clean up negative values and such...
+    } // todo, this should be cannibalized so I can use the muscle tf in its own function
     public void takeSpeciesChange(String newSpecies){
         //todo focus on mass changes for different species
         //todo, also need descriptions... might rely on bodypart.type...
         String currentSpecies = this.getBeastType();
-        if (currentSpecies.equalsIgnoreCase(newSpecies)){
+        //
+        if (currentSpecies.equalsIgnoreCase(newSpecies)||currentSpecies.equalsIgnoreCase("human")){
             this.takeHumanityChange(newSpecies);
         }
         else {
@@ -463,6 +481,143 @@ public class BodyPart {
             }
             if(partType.equalsIgnoreCase("head")){
 
+
+
+            //@todo, here. quickbody
+                if(partType.equalsIgnoreCase("body")) {
+                    System.out.println("Your arm becomes more bestial.");
+                    if (toBeast.equalsIgnoreCase("rabbit") ||
+                            toBeast.equalsIgnoreCase("wolf") ||
+                            toBeast.equalsIgnoreCase("feline")
+                    ) {
+                        System.out.println("You feel fur spread across the limb.");
+                        if (human == 4) {
+                            System.out.println("Your hand convulses and twitches as it becomes more bestial.");
+                            this.setDescription("arm complete with pawlike fingers on a mostly human hand.");
+                            System.out.println("You now have a slightly " + toBeast + "like " + this.getDescription());
+                            System.out.println("You now have a pawlike hand");
+                            this.setDex(22);
+//                        System.out.println("Your limb is "); todo, add color and texture... but not now
+                        }
+                        if (human == 3) {
+                            System.out.println("Your hand snaps and convulses as it becomes more bestial.");
+                            this.setDescription("arm complete with pawlike fingers and elongated, bestial hand.");
+                            System.out.println("You now have a vaguely " + toBeast + "like " + this.getDescription());
+                            this.setDex(17);
+                        }
+                        if (human == 2) {
+                            System.out.println("Your hand convulses as it becomes more bestial.");
+                            this.setDescription("arm complete with pawlike fingers attached you your grasping paw.");
+                            System.out.println("You now have a " + toBeast + "like " + this.getDescription());
+                            this.setDex(12);
+                        }
+                        if (human == 1) {
+                            System.out.println("Your fingers shrink as they become bestial paws.");
+                            this.setDescription("foreleg complete with animal paw.");
+                            System.out.println("You now have a " + toBeast + "like " + this.getDescription());
+                            this.setDex(6);
+                            // todo, make this one function using description...
+                        }
+                    }
+                    if (toBeast.equalsIgnoreCase("sheep") ||
+                            toBeast.equalsIgnoreCase("horse") ||
+                            toBeast.equalsIgnoreCase("deer") ||
+                            toBeast.equalsIgnoreCase("cow") ||
+                            toBeast.equalsIgnoreCase("goat")
+                    ) {
+                        System.out.println("You feel fur spread across the limb.");
+                        if (human == 4) {
+                            System.out.println("Your hand stiffens slightly as it becomes more bestial.");
+                            this.setDescription("arm complete with slightly stiffened fingers on a mostly human hand.");
+                            System.out.println("You now have a slightly " + toBeast + "like " + this.getDescription());
+                            this.setDex(19);
+//                        System.out.println("Your limb is "); todo, add color and texture... but not now
+                        }
+                        if (human == 3) {
+                            System.out.println("Your fingers shrink as they become more bestial.");
+                            this.setDescription("arm complete with hooflike fingers and elongated, bestial wrist.");
+                            System.out.println("You now have a vaguely " + toBeast + "like " + this.getDescription());
+                            this.setDex(14);
+                        }
+                        if (human == 2) {
+                            System.out.println("Your fingers merge into hooflike digits.");
+                            this.setDescription("arm complete with split fingerlike hoof digits attached to your bestial wrist.");
+                            System.out.println("You now have a " + toBeast + "like " + this.getDescription());
+                            this.setDex(8);
+                        }
+                        if (human == 1) {
+                            System.out.println("Your fingers fuse and merge into a hoof.");
+                            this.setDescription("foreleg complete with hoof.");
+                            System.out.println("You now have a " + toBeast + "like " + this.getDescription());
+                            this.setDex(3);
+                            // todo, make this one function using description...
+                        }
+
+                    }
+                    if (toBeast.equalsIgnoreCase("lizard") ||
+                            toBeast.equalsIgnoreCase("reptile")
+                    ) {
+                        System.out.println("You feel scales spread across the limb.");
+                        if (human == 4) {
+                            System.out.println("Your fingers stretch as they become more bestial.");
+                            this.setDescription("arm complete with slightly elongated fingers on a mostly human hand.");
+                            System.out.println("You now have a slightly " + toBeast + "like " + this.getDescription());
+                            this.setDex(23);
+//                        System.out.println("Your limb is "); todo, add color and texture... but not now
+                        }
+                        if (human == 3) {
+                            System.out.println("Claws burst from your fingers as they lose their humanity.");
+                            this.setDescription("arm complete with inhuman fingers attached to a somewhat human hand.");
+                            System.out.println("You now have a " + toBeast + "like " + this.getDescription());
+                            this.setDex(20);
+                        }
+                        if (human == 2) {
+                            System.out.println("Your hand lengthens slightly as it becomes more bestial.");
+                            this.setDescription("arm complete with scaly fingers and somewhat bestial wrist.");
+                            System.out.println("You now have a vaguely " + toBeast + "like " + this.getDescription());
+                            this.setDex(17);
+                        }
+                        if (human == 1) {
+                            System.out.println("Your thumb becomes another scaly finger and you no longer have an opposable thumb on this hand.");
+                            this.setDescription("foreleg complete with grasping paws.");
+                            System.out.println("You now have a " + toBeast + "like " + this.getDescription());
+                            this.setDex(14);
+                            // todo, make this one function using description...
+                        }
+                    }
+                    if (toBeast.equalsIgnoreCase("bird")
+//                        || toBeast.equalsIgnoreCase("avian")
+                    ) {
+                        System.out.println("You feel feathers spread across the limb.");
+                        if (human == 4) {
+                            System.out.println("Your fingers stretch as they become more bestial.");
+                            this.setDescription("arm complete with slightly elongated fingers on a mostly human hand.");
+                            System.out.println("You now have a slightly " + toBeast + "like " + this.getDescription());
+                            this.setDex(20);
+//                        System.out.println("Your limb is "); todo, add color and texture... but not now
+                        }
+                        if (human == 3) {
+                            System.out.println("Your fingers shift as your arm becomes more winglike.");
+                            this.setDescription("arm-wing complete with elongated fingers.");
+                            System.out.println("You now have a " + toBeast + "like " + this.getDescription());
+                            this.setDex(16);
+                        }
+                        if (human == 2) {
+                            System.out.println("Your lower digits stiffen as they are absorbed by your new wing.");
+                            this.setDescription("wing with several fingerlike digits.");
+                            System.out.println("You now have a vaguely " + toBeast + "like " + this.getDescription());
+                            this.setDex(12);
+                        }
+                        if (human == 1) {
+                            System.out.println("Thge last of your fingerlike digits are absorbed into your wing.");
+                            this.setDescription("wing with no apparent digits.");
+                            System.out.println("You now have a " + toBeast + "like " + this.getDescription());
+                            this.setDex(5);
+                            // todo, make this one function using description...
+                        }
+                    }
+
+                }
             }
             else {
                 System.out.println("Your "+this.getLimbName()+" becomes more "+toBeast+"like.");
@@ -528,6 +683,55 @@ public class BodyPart {
 
 
     //todo, remove muscle mass?
+
+    //CONSTRUCTORS
+    public BodyPart(){  //temp, todo
+
+        setLimbName("body");
+        setType("temp body");
+        setMaxHP(150);
+        setStr(140);
+        setAgl(100);
+        setMass(150);
+        setMuscle(60);
+        setSlimMuscle(10);
+        setLeanMuscle(20);
+        setBulkMuscle(30);
+        setGender(5);
+        setHumanity(5);
+        setDex(25);
+        setBeastType("human");
+        setDescription("A boring human body");
+        setCrippled(false);
+    } //this is temporary, full body needs balancing
+
+
+    public BodyPart(String name){
+        //todo, fixme
+        if (name.equalsIgnoreCase("leftarm")) {
+            setLimbName("Left Arm");
+            setType(name);
+            setHP(120);
+            setMaxHP(20);
+            setStr(140);
+            setAgl(100);
+            setMass(20);
+            setMuscle(12);
+            setSlimMuscle(2);
+            setLeanMuscle(4);
+            setBulkMuscle(6);
+            //male
+            setGender(5);
+            setHumanity(5);
+            setDex(25);
+            // setColor()
+            //setTexture
+            setBeastType("human");
+            setDescription("A boring human " +name);
+            setCrippled(false);
+        }
+    }
+
 }
 
 /*
@@ -567,4 +771,14 @@ digits
  hand, paw tipped hand, pawed hand, paw with fingerpaws..
     paw with fingers,
  hand, winglike hand, handlike wing, wing
+
+ human male whole body stat:             setHP(120);
+            setMaxHP(150);
+            setStr(140);
+            setAgl(100);
+            setMass(150);
+            setMuscle(60);
+            setSlimMuscle(10);
+            setLeanMuscle(20);
+            setBulkMuscle(30);
  */

@@ -1,5 +1,6 @@
 package gorm.body;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,6 +13,7 @@ public class Body {
     int agl;
     int intelligence;
     List <BodyPart> bodyList;
+    String name;
     //WIP, todo, build bodyPart first
 
 
@@ -44,6 +46,9 @@ public class Body {
     public BodyPart getBodyPart(int in){
         return this.getBodyList().get(in);
     }
+    public String getName() {
+        return name;
+    }
 
     // SETTERS
     private void setSP(int SP) {
@@ -70,19 +75,37 @@ public class Body {
     private void setBodyList(List<BodyPart> bodyList) {
         this.bodyList = bodyList;
     }
-
+    public void setName(String name) {
+        this.name = name;
+    }
     //CALCULATIONS
     //todo, calculate stats from body parts
 
     //CONSTRUCTORS
     public Body(){
-//        set
+        List<BodyPart> b = new LinkedList<>();
+        b.add(new BodyPart());
+        this.setBodyList(b);
+        this.setName("Your");
     }
 
 
     // create specific bodies here:
     public Body(String init){
         //wip, todo
+        if (init.equalsIgnoreCase("human")) {
+            this.getBodyList().add(new BodyPart("leftarm"));
+            this.getBodyList().add(new BodyPart("rightarm"));
+            this.getBodyList().add(new BodyPart("leftleg"));
+            this.getBodyList().add(new BodyPart("rightleg"));
+            this.getBodyList().add(new BodyPart("torso"));
+            this.getBodyList().add(new BodyPart("abdomen"));
+            this.getBodyList().add(new BodyPart("waist"));
+            this.getBodyList().add(new BodyPart("tail"));
+            this.getBodyList().add(new BodyPart("head"));
+
+
+        }
     }
 
 //    public Body(int SP, int MP, int maxSP){
@@ -139,7 +162,84 @@ public class Body {
 //
 //        }(while input!=)
         return 0;// fixme
+    }
+
+    // QUICK ATTACK FUNCTIONS
+    public void takeRandomHit(int baseDmg){
+
+    }
+    public void takeRandomHit(){
+        int locMax = this.getBodyList().size();
+        int hitLoc = (int)(Math.random()*locMax);
+        int dmg = (int)(Math.random()*10)+3;
+        this.getBodyPart(hitLoc).takeDmg(dmg);
+        // todo, add a name and display dmg
+        // System.out.println(this.getName()+" took "+dmg+" to the ");
+    }
+    public void takeRandomTF(){
+        int locMax = this.getBodyList().size();
+        int hitLoc = (int)(Math.random()*locMax);
+        // todo, make this an enum or something
+        String[] species = {"wolf", "rabbit", "feline", "sheep", "goat", "deer", "horse", "lizard", "rodent", "bird"};
+        int tf = (int)(Math.random()*9);
+        this.getBodyPart(hitLoc).takeSpeciesChange(species[tf]);
+    }
+    public void takeRandomSpecificTF(String newSpecies){
+        int locMax = this.getBodyList().size();
+        int hitLoc = (int)(Math.random()*locMax);
+        this.getBodyPart(hitLoc).takeSpeciesChange(newSpecies);
+    }
+    public void takeWholeSpeciesTF(String newSpecies){
+        int locMax = this.getBodyList().size();
+        for (int i =0;i<locMax;i++){
+            this.getBodyPart(i).takeSpeciesChange(newSpecies);
         }
+    }
+    public void takeRandomFeminize(){
+        int locMax = this.getBodyList().size();
+        int hitLoc = (int)(Math.random()*locMax);
+        // todo, make this an enum or something
+        int tf = -(int)(Math.random()*3);
+        this.getBodyPart(hitLoc).takeGenderChange(tf);
+    }
+    public void takeWholeFeminize(){
+        int locMax = this.getBodyList().size();
+        int tf = -(int)(Math.random()*3);
+        for (int i =0;i<locMax;i++){
+            this.getBodyPart(i).takeGenderChange(tf);
+        }
+    }
+    public void takeWholeFeminize(String newSpecies){
+        int locMax = this.getBodyList().size();
+        int tf = -(int)(Math.random()*3);
+        for (int i =0;i<locMax;i++){
+            this.getBodyPart(i).takeGenderChange(tf);
+            this.getBodyPart(i).takeSpeciesChange(newSpecies);
+        }
+    }
+    public void takeRandomMasculine(){
+        int locMax = this.getBodyList().size();
+        int hitLoc = (int)(Math.random()*locMax);
+        // todo, make this an enum or something
+        int tf = (int)(Math.random()*3);
+        this.getBodyPart(hitLoc).takeGenderChange(tf);
+    }
+    public void takeWholeMasculine(){
+        int locMax = this.getBodyList().size();
+        int tf = (int)(Math.random()*3);
+        for (int i =0;i<locMax;i++){
+            this.getBodyPart(i).takeGenderChange(tf);
+        }
+    }
+    public void takeWholeMasculine(String newSpecies){
+        int locMax = this.getBodyList().size();
+        int tf = (int)(Math.random()*3);
+        for (int i =0;i<locMax;i++){
+            this.getBodyPart(i).takeGenderChange(tf);
+            this.getBodyPart(i).takeSpeciesChange(newSpecies);
+        }
+    }
+
 
 
 
