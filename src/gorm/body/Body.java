@@ -86,7 +86,7 @@ public class Body {
         List<BodyPart> b = new LinkedList<>();
         b.add(new BodyPart());
         this.setBodyList(b);
-        this.setName("Your");
+//        this.setName("Your");
     }
 
 
