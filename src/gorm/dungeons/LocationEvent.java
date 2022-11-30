@@ -9,7 +9,7 @@ public class  LocationEvent {
     public boolean activateEvent(Player player, Scanner sc) {
         // overwrite this for specific events!!!
         // return for success?
-        System.out.println("no event triggered");
+//        System.out.println("no event triggered");
         return true; //return true means non-overwritten allows entry
     }
 

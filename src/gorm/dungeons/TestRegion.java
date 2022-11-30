@@ -2,9 +2,7 @@ package gorm.dungeons;
 
 import gorm.Location;
 import gorm.Region;
-import gorm.dungeons.events.AutoFemEvent;
-import gorm.dungeons.events.TestEvent1;
-import gorm.dungeons.events.TestEvent2;
+import gorm.dungeons.events.*;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -55,7 +53,9 @@ public class TestRegion extends Region {
 
         // add-ons (WIPS)
 //        room2.setOnArrival(new TestEvent2());
-        room2.setOnArrival(new AutoFemEvent());
+//        room2.setOnArrival(new AutoFemEvent());
+//        room2.setOnArrival(new TileTrapCougarSheep());
+            room2.setOnArrival(new DartTrap());
 
     }
 }

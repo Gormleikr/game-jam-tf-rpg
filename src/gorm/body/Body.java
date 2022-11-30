@@ -241,6 +241,17 @@ public class Body {
     }
 
 
+    //temp
+    public int dexCheck(){
+        return this.getBodyList().get(0).getDex();
+    }
+    public int aglCheck(){
+        return this.getBodyList().get(0).getAgl();
+    }
+    //temp
+    public int strCheck(){
+        return this.getBodyList().get(0).getStr();
+    }
 
 
 }

@@ -2,9 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dc1c43e6-5d9d-49ff-aba5-96eac7225b3a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gorm/dungeons/events/DartTrap.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gorm/dungeons/events/EndExitHumanTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gorm/dungeons/events/PitTrap.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gorm/dungeons/events/PitTrapWolfRaven.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gorm/dungeons/events/TileTrapCougarSheep.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gorm/dungeons/events/TileTrapHorseCow.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gorm/dungeons/events/TileTrapSheepDeer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gorm/body/Body.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gorm/body/Body.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gorm/body/BodyPart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gorm/body/BodyPart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gorm/dungeons/LocationEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gorm/dungeons/LocationEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gorm/dungeons/TestRegion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gorm/dungeons/TestRegion.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,12 +41,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="ExampleTower" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="gorm.dungeons.ExampleTower" />
