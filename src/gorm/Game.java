@@ -1,6 +1,7 @@
 package gorm;
 
 import gorm.dungeons.ExampleTower;
+import gorm.dungeons.SmallGully;
 import gorm.dungeons.TestRegion;
 import org.w3c.dom.ls.LSOutput;
 
@@ -33,14 +34,15 @@ public class Game {
         String option = "9"; //unnecesary initialization
         do {
             System.out.println("Main Menu:");
-            System.out.println("wip... options will be ");
-            System.out.println("1.New Game 2.load region 3. load player characters 8. test 0. exit");
+//            System.out.println("wip... options will be ");
+//            System.out.println("1.New Game 2.load region 3. load player characters 8. test 0. exit");
+            System.out.println("1.New Game 0. exit");
             option = this.scan.nextLine().toLowerCase();
             //    Integer.parseInt(
 
             switch (option) {
                 case "1": //new game
-                    region= new Region();
+                    region= new SmallGully();
                     player = new Player();
                     this.startGame();
                     //run game
@@ -56,7 +58,7 @@ public class Game {
                 case "8":
                     System.out.println("testing feature");
                     setPlayer(new Player());
-                    setRegion(new TestRegion());
+                    setRegion(new SmallGully());
                 this.startGame();
                     break;
 

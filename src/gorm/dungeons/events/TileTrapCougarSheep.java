@@ -13,7 +13,7 @@ public class TileTrapCougarSheep extends LocationEvent {
     @Override
     public boolean activateEvent(Player player, Scanner sc) {
         if (isActive()) {
-            System.out.println("You come to a hallway set with large tiles");
+            System.out.println("A set of large tiles lies between you and the center of the room.");
             boolean repeat = false;
             boolean on = true;
             int choice1 = 0;
@@ -30,7 +30,7 @@ public class TileTrapCougarSheep extends LocationEvent {
                     choice1 = 2;
                     System.out.println("You step gingerly onto the white tile marked with a brown bunny.");
                 } else if (input.equals("3") || input.equalsIgnoreCase("return")) {
-                    System.out.println("You retreat from the tunnel and go back to the room you were in.");
+                    System.out.println("You retreat from the chamber and go back to the way you came from.");
                     return false; //should go back to previous room
                 } else {
                     repeat = true;

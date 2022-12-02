@@ -4,7 +4,7 @@ import gorm.body.Body;
 
 public class Player {
     // create up to 3 or 4 beings?
-    String name = "TestChar1";
+    String name = "Refugee";
     Body body = new Body();
     Player(){
 

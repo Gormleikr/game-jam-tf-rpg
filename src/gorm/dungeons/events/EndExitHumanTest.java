@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class EndExitHumanTest extends LocationEvent {
 
-    EndExitHumanTest(){
+    public EndExitHumanTest(){
         super(true);
     }
 
